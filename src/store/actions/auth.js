@@ -42,7 +42,7 @@ export const checkAuthTimeout = (expirationTime) => {
 
 // Auth flow when signing up a new email or logging in
 export const auth = (email, password, isSignup) => {
-   const API_KEY = "AIzaSyC90UV-t-FI-_uRGAwDt0MR4hS_Yn0b_nY";
+   const API_KEY = process.env.REACT_APP_FIREBASE_API_KEY;
    return (dispatch) => {
       dispatch(authStart());
       const authData = {
@@ -52,13 +52,11 @@ export const auth = (email, password, isSignup) => {
       };
 
       // firebase signup url
-      let baseURL =
-         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
+      let baseURL = process.env.REACT_APP_SIGNUP_URL;
 
       // firebase sign in url
       if (!isSignup) {
-         baseURL =
-            "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
+         baseURL = process.env.REACT_APP_SIGNIN_URL;
       }
       axios
          .post(`${baseURL}${API_KEY}`, authData)
